@@ -16,7 +16,7 @@ def get_names(spicy_foods)
   
 end
 
-p get_names(spicy_foods)
+# p get_names(spicy_foods)
 # given an array of spicy foods, **return an array of hashes** 
 # where the heat level of the food is greater than 5
 def spiciest_foods(spicy_foods)
@@ -25,7 +25,7 @@ def spiciest_foods(spicy_foods)
 
 end
 
-p spiciest_foods(spicy_foods)
+# p spiciest_foods(spicy_foods)
 # given an array of spicy foods, **output to the terminal**
 # each spicy food in the following format: 
 # Buffalo Wings (American) | Heat Level: 🌶🌶🌶
@@ -33,17 +33,25 @@ p spiciest_foods(spicy_foods)
 # "hello" * 3 == "hellohellohello"
 def print_spicy_foods(spicy_foods)
   spicy_foods.each do |food|
-    puts "#{food[:name]} (#{food[:cuisine]}) | Heat Level: #{food[:heat_level]}"
+    name = food[:name]
+    cuisine = food[:cuisine]
+    heat_level = food[:heat_level]
+    heat_emojis = "🌶" * heat_level
+    name_witout_parentheses = name.gsub(/\s*\([^)]*\)/, '')
+    puts "#{name_witout_parentheses} (#{cuisine}) | Heat Level: #{heat_emojis}"
   end
+  # spicy_foods.each do |food|
+    # puts "#{food[:name]} (#{food[:cuisine]}) | Heat Level: #{food[:heat_level]}"
+  # end
 end
 
-p print_spicy_foods(spicy_foods)
+# p print_spicy_foods(spicy_foods)
 # given an array of spicy foods and a string representing a cuisine, **return a single hash**  
 # for the spicy food whose cuisine matches the cuisine being passed to the method
 def get_spicy_food_by_cuisine(spicy_foods, cuisine)
-  spicy_foods.select {|food| food[:cuisine] == cuisine}
-
-
+  spicy_foods.find {|food| food[:cuisine] == cuisine}
+  
+  
 end
 
 
@@ -60,7 +68,7 @@ end
 # HINT: Try to use methods you've already written to solve this!
 def print_spiciest_foods(spicy_foods)
   spiciest_foods(spicy_foods).each do |food|
-    puts "#{food[:name]} (#{food[:cuisine]}) | Heat Level: #{food[:heat_level]}"
+    puts "#{food[:name]} (#{food[:cuisine]}) | Heat Level: #{'🌶' * food[:heat_level]}"
   end
 end
 
@@ -69,6 +77,11 @@ end
 def average_heat_level(spicy_foods)
   total = 0
   spicy_foods.each do |food|
-    total += food[:heat_level]
+    total += spicy_foods.sum { |food| food[:heat_level] }
+    # return total
+    average = total / spicy_foods.length
+    return average
   end
 end
+
+pp average_heat_level(spicy_foods)
